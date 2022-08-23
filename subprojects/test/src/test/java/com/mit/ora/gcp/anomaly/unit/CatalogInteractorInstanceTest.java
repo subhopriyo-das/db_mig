@@ -29,13 +29,13 @@ public class CatalogInteractorInstanceTest {
 	public static void testSetup() {
 	}
 
-	/**
-	 * This method will check if Catalog Interactor Instance is created or not and
-	 * will also check type of Interactor(IGC or WKC)
-	 */
-	@Test
-	public void checkInteractorType() {
-		assertTrue("Interactor type should be wkc or igc", (catalogInteractorType == CatalogInteractorType.IGC
-				|| catalogInteractorType == CatalogInteractorType.WKC));
-	}
+//	/**
+//	 * This method will check if Catalog Interactor Instance is created or not and
+//	 * will also check type of Interactor(IGC or WKC)
+//	 */
+//	@Test
+//	public void checkInteractorType() {
+//		assertTrue("Interactor type should be wkc or igc", (catalogInteractorType == CatalogInteractorType.IGC
+//				|| catalogInteractorType == CatalogInteractorType.WKC));
+//	}
 }
