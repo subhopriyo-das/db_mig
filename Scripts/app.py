@@ -1,5 +1,5 @@
 from time import sleep
-from flask import Flask, send_file
+from flask import Flask, send_from_directory
 from flask_restx import Api, Resource, fields
 from werkzeug.middleware.proxy_fix import ProxyFix
 from werkzeug.datastructures import FileStorage
@@ -133,14 +133,23 @@ class CompareCSV(Resource):
 
         resp = csvVal.processCSV(wb1,wb2)
 
+        response = send_from_directory(directory=os.getcwd(), filename='Validation_response.txt')
+        response.headers['my-custom-header'] = 'my-custom-status-0'
+        return response
+
+        # filename = rq.form.get('Validation_response.txt')
+        # file_data = codecs.open(filename, 'rb').read()
+        # return file_data
+        #open("Validation_response.txt", "wb").write(resp.content)
+
         #send file as response "Validation_response.txt"
-        response = send_file(
-        filename_or_fp="Validation_response.txt",
-        mimetype="application/octet-stream",
-        as_attachment=True,
-        attachment_filename= "Validation_response.txt" #data["Validation_response.txt"]
-    )
-        return resp, 200
+    #     response = send_file(
+    #     filename_or_fp="Validation_response.txt",
+    #     mimetype="application/octet-stream",
+    #     as_attachment=True,
+    #     attachment_filename= "Validation_response.txt" #data["Validation_response.txt"]
+    # )
+        #return resp, 200
 
 @ns.route("/get_mappings/<wf>")
 @api.param("wf", "The work flow name/identifier")
