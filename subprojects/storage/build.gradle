@@ -1,0 +1,29 @@
+description = "Insights Stotage Module"
+
+dependencies {
+
+	compileOnly group: 'com.ibm.db2', name:'jcc', version:'11.1.4.4'
+    compileOnly group: 'org.apache.wink', name: 'wink-json4j', version: project['org.apache.wink.json4j.version']
+    compileOnly group: 'org.apache.httpcomponents', name: 'httpcore', version: project['httpcore.version']
+    // https://mvnrepository.com/artifact/net.sf.jsqlparser/jsqlparser
+	compileOnly group: 'com.github.jsqlparser', name: 'jsqlparser', version: '4.4'
+	// https://mvnrepository.com/artifact/commons-io/commons-io
+	compileOnly group: 'commons-io', name: 'commons-io', version: '2.6'
+}
+
+publishing {
+    publications {
+       mavenJava(MavenPublication) {
+           from components.java
+       }
+    }
+}
+
+eclipse {
+    classpath {
+        defaultOutputDir = file('bin/main')
+        file.whenMerged { cp ->
+            cp.entries.findAll { it instanceof org.gradle.plugins.ide.eclipse.model.SourceFolder && it.path.startsWith('src/test/') }*.output = 'bin/test'
+        }
+    }
+}

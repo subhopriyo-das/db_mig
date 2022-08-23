@@ -1,0 +1,40 @@
+apply plugin: 'war'
+
+description = "REST Interface for Migration Insights Service"
+
+dependencies {
+
+    implementation project(':ora2gcp-mig-storage')
+    implementation project(':ora2gcp-mig-common')
+    compileOnly (configurations.commonJars) {
+        exclude group: 'org.slf4j'
+        exclude group: 'org.apache.logging.log4j'
+    }
+    compileOnly configurations.libertyJars
+
+}
+    
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.web
+        }
+    }
+}
+
+eclipse {
+    classpath {
+        defaultOutputDir = file('bin/main')
+        file.whenMerged { cp ->
+            cp.entries.findAll { it instanceof org.gradle.plugins.ide.eclipse.model.SourceFolder && it.path.startsWith('src/test/') }*.output = 'bin/test'
+        }
+    }
+    wtp {
+        component {
+            contextPath = '/mit/oragcp/api/insights/v1'
+        }
+        facet.file.whenMerged {
+            facets.find { it.type.name() == 'installed' && it.name == 'jst.web' }.version = '3.0'
+        }
+    }
+}
