@@ -30,9 +30,11 @@ https://github.com/DOCS/MoneyGramOracle2GCPMigration.md
    ./gradlew build -x test
    ./gradlew setupLiberty
    ./gradlew deploy
+   ./gradlew copyCommonJars
    ./gradlew libertyStop
    ./gradlew libertyStart
    ```
+   Note : if you are using windows PC use gradlew.bat in place of ./gradlew
    
 ## Building docker image locally and deployed to UG machine
 Docker image build is orchestrated with Gradle scripting.
