@@ -3,8 +3,7 @@ from collections import Counter
 
 
 def processCSV(rb1_birp, rb2_gcp):
-    # rb1_birp = xlrd.open_workbook('Guatemala_Send_Birp_View.xlsx')
-    # rb2_gcp = xlrd.open_workbook('CR_GUATEMALA_SEND_VIEW_GCP_PROD_202207280803.xlsx')
+    
     birp_sheet = rb1_birp.sheet_by_index(0)
     gcp_sheet = rb2_gcp.sheet_by_index(0)
 
