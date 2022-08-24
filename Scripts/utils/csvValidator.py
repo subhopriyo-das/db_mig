@@ -3,8 +3,7 @@ from collections import Counter
 
 
 def processCSV(rb1_birp, rb2_gcp):
-    # rb1_birp = xlrd.open_workbook('Guatemala_Send_Birp_View.xlsx')
-    # rb2_gcp = xlrd.open_workbook('CR_GUATEMALA_SEND_VIEW_GCP_PROD_202207280803.xlsx')
+    
     birp_sheet = rb1_birp.sheet_by_index(0)
     gcp_sheet = rb2_gcp.sheet_by_index(0)
 
@@ -67,18 +66,18 @@ def processCSV(rb1_birp, rb2_gcp):
         tofile = open('Validation_response.txt', 'a')
         tofile.write("\n\n\t\tColumn name\t\tSource value\t\tTarget value")
         for rownum in range(1,max_rownum+1): 
-            tofile.write("\n\nPrimary_key: {}\n".format(int(primary_key[rownum])))
             if rownum < birp_sheet.nrows:    
                 row_rb1_birp = birp_sheet.row_values(rownum)
                 row_rb2_gcp = gcp_sheet.row_values(rownum)
         
                 for colnum, (c1, c2) in enumerate(zip(row_rb1_birp, row_rb2_gcp)):
                     if c1 != c2:
+                        tofile.write("\n\nPrimary_key: {}\n".format(int(primary_key[rownum])))
                         tofile.write('\n')
                         tofile.write("Cell {}{}    {} - {} != {}".format(rownum+1,xlrd.formula.colname(colnum),header[colnum], c1, c2))
 
-            if row_rb1_birp == row_rb2_gcp:
-                tofile.write("\n\t\tNo mismatches found. Record is matching")
+            # if row_rb1_birp == row_rb2_gcp:
+            #     tofile.write("\n\t\tNo mismatches found. Record is matching")
     else:
         tofile.write("\n\nRemove duplicates from source or missing records from Source to proceed Data validation")
     tofile.close()
