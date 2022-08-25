@@ -8,3 +8,7 @@ bin/
 .project
 .classpath
 *.log
+
+#python
+/__pycache__/*
+*.pyc
